@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TeamStudy Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a class="profile-picture" href="#">
+            <img src="assets/woman.png" alt="User profile picture" width="80" height="80"/>
+        </a>
+        <h2>Ana Clara</h2>
+        <div class="edit">editar</div>
+        <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-book"></i> Cursos</a>
+        <a href="#"><i class="fas fa-calendar-alt"></i> Cronograma</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Progresso</a>
+        <div class="logout-button"><i class="fas fa-power-off"></i> Sair</div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="logo">
+                <h1><span class="team">Team</span><span class="study">Study</span></h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search..." style="background-color: #ffffff;"/>
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-cog"></i>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="welcome" style="width: 700px; height: 300px;">
+                <div>
+                    <h2 style="font-weight: 900;">Olá, Ana Clara!</h2>
+                    <p style="font-weight: 500;">Boas-vindas de volta ao TeamStudy! Que tal darmos mais um passo rumo aos seus objetivos de estudo hoje? Vamos juntos nessa jornada!</p>
+                </div>
+                <img src="assets/coruja.png" alt="Owl with graduation cap" width="320" height="360"/>
+            </div>
+
+            <div class="progress">
+                <div class="card" style="width: 220px; height: 80px;">
+                    <img src="assets/Capelo.png" alt="Graduation cap icon"/>
+                    <h3 style="color: black; font-size: 50px;">12</h3>
+                    <p style="color: black; font-weight: 500;">Cursos Feitos</p>
+                </div>
+                <div class="card" style="width: 220px; height: 80px;">
+                    <img src="assets/calendario.png" alt="Calendar icon"/>
+                    <h3 style="color: black; font-size: 50px;">69</h3>
+                    <p style="color: black; font-weight: 500;">Dias de Estudo</p>
+                </div>
+                <div class="card" style="width: 220px; height: 80px;">
+                    <img src="assets/progresso.png" alt="Progress chart icon"/>
+                    <h3 style="color: black; font-size: 50px;">51%</h3>
+                    <p style="color: black; font-weight: 500;">Média de progresso</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="history">
+            <div class="card" style="width: 350px;">
+                <h3>Histórico de aulas</h3>
+                <div class="item">
+                    <img src="assets/banco.png" alt="SQL icon" width="40" height="40"/>
+                    <div class="details">
+                        <h4>Introdução ao SQL</h4>
+                        <p>Banco de Dados</p>
+                    </div>
+                    <div class="time">50mins ago</div>
+                </div>
+                <div class="item">
+                    <img src="assets/logica.png" alt="Programming icon" width="40" height="40"/>
+                    <div class="details">
+                        <h4>Estruturas de Sequência</h4>
+                        <p>Lógica de Programação</p>
+                    </div>
+                    <div class="time">30mins ago</div>
+                </div>
+                <div class="item">
+                    <img src="assets/logica.png" alt="Programming icon" width="40" height="40"/>
+                    <div class="details">
+                        <h4>Funções e Procedimentos</h4>
+                        <p>Lógica de Programação</p>
+                    </div>
+                    <div class="time">5mins ago</div>
+                </div>
+            </div>
+
+            <div class="card" style="width: 350px;">
+                <h3>Histórico de cursos</h3>
+                <div class="item">
+                    <img src="assets/jogos.png" alt="Game development icon" width="40" height="40"/>
+                    <div class="details">
+                        <h4>Desenvolvimento de jogos</h4>
+                        <p>Concluído</p>
+                        <div class="progress-bar">
+                            <div class="progress green" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="assets/logica.png" alt="Programming logic icon" width="40" height="40"/>
+                    <div class="details">
+                        <h4>Lógica de Programação</h4>
+                        <p>Progresso</p>
+                        <div class="progress-bar">
+                            <div class="progress yellow" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="assets/banco.png" alt="Database icon" width="40" height="40"/>
+                    <div class="details">
+                        <h4>Banco de Dados</h4>
+                        <p>Progresso</p>
+                        <div class="progress-bar">
+                            <div class="progress black" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="brand">
+                <h3>Team<span style="color:#d4a017;">Study</span></h3>
+                <p>© Alguns direitos reservados.</p>
+            </div>
+            <div class="support-follow">
+                <div>
+                    <h3>Suporte</h3>
+                    <ul>
+                        <li><a href="#">Primeiros passos</a></li>
+                        <li><a href="#">Central de ajuda</a></li>
+                        <li><a href="#">Status do servidor</a></li>
+                        <li><a href="#">Relatar um erro</a></li>
+                        <li><a href="#">Suporte por chat</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Siga-nos</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

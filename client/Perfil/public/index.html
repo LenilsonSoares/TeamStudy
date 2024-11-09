@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>TeamStudy Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a class="profile-picture" href="#">
+            <img src="assets/woman.png" alt="User profile picture" width="80" height="80"/>
+        </a>
+        <h2>Ana Clara</h2>
+        <div class="edit">editar</div>
+        <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-book"></i> Cursos</a>
+        <a href="#"><i class="fas fa-calendar-alt"></i> Cronograma</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Progresso</a>
+        <div class="logout-button"><i class="fas fa-power-off"></i> Sair</div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="logo">
+                <h1><span class="team">Team</span><span class="study">Study</span></h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search..." style="background-color: #ffffff;"/>
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-cog"></i>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <h1>Editar Perfil</h1>
+            <img alt="Profile picture of Ana Clara" height="100" src="assets/woman.png" width="100"/>
+            <h2>Ana Clara</h2>
+            <p>@anaclara123</p>
+            <button class="upload-btn">Carregar Nova Foto</button>
+            <p class="info">
+                Envie um novo avatar. Imagens maiores serão <br> redimensionadas automaticamente. <br> O tamanho máximo de upload é 4 MB
+            </p>
+            <p class="member-since">Membro desde: <strong>26 outubro de 2024</strong></p>
+            <form id="profile-form">
+                <input id="full-name" placeholder="Nome Completo" type="text"/>
+                <input id="username" placeholder="Nome de Usuário" type="text"/>
+                <input id="email" placeholder="Endereço de E-mail" type="email"/>
+                <input id="confirm-email" placeholder="Confirmar Endereço de E-mail" type="email"/>
+                <input id="password" placeholder="Senha" type="password"/>
+                <input id="confirm-password" placeholder="Confirmar Senha" type="password"/>
+                <button class="submit-btn" type="submit">Atualizar Informações</button>
+            </form>
+            <p id="success-message" style="color: green; display: none;">Informações atualizadas com sucesso!</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-content">
+            <div class="brand">
+                <h3>Team<span style="color:#d4a017;">Study</span></h3>
+                <p>© Alguns direitos reservados.</p>
+            </div>
+            <div class="support-follow">
+                <div>
+                    <h3>Suporte</h3>
+                    <ul>
+                        <li><a href="#">Primeiros passos</a></li>
+                        <li><a href="#">Central de ajuda</a></li>
+                        <li><a href="#">Status do servidor</a></li>
+                        <li><a href="#">Relatar um erro</a></li>
+                        <li><a href="#">Suporte por chat</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Siga-nos</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

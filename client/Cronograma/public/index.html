@@ -1,0 +1,154 @@
+<html>
+<head>
+    <title>TeamStudy Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a class="profile-picture" href="#">
+            <img src="assets/woman.png" alt="User profile picture" width="80" height="80"/>
+        </a>
+        <h2>Ana Clara</h2>
+        <div class="edit">editar</div>
+        <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-book"></i> Cursos</a>
+        <a href="#"><i class="fas fa-calendar-alt"></i> Cronograma</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Progresso</a>
+        <div class="logout-button"><i class="fas fa-power-off"></i> Sair</div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="logo">
+                <h1><span class="team">Team</span><span class="study">Study</span></h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search..." style="background-color: #ffffff;"/>
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-cog"></i>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>Cronograma</h1>
+            <div class="calendar">
+                <div class="month-navigation">
+                    <button id="prevMonth">&lt;</button>
+                    <h2 id="monthYear"></h2>
+                    <button id="nextMonth">&gt;</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dom</th>
+                            <th>Seg</th>
+                            <th>Ter</th>
+                            <th>Qua</th>
+                            <th>Qui</th>
+                            <th>Sex</th>
+                            <th>Sab</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendarBody"></tbody>
+                </table>
+            </div>
+
+            <div class="progress">
+                <h2>Progresso</h2>
+                <canvas id="progressChart" width="200" height="150"></canvas>
+            </div>
+
+            <div class="goals" style="width: 90%;">
+                <h2>Minhas Metas
+                    <button class="add-button"><i class="fas fa-plus"></i> Adicionar</button>
+                </h2>
+                <table>
+                    <tr>
+                        <th>Título</th>
+                        <th>Curso</th>
+                        <th>Dia</th>
+                        <th>Duração</th>
+                        <th>Ação</th>
+                    </tr>
+                    <tr>
+                        <td>Meta 1</td>
+                        <td><img alt="Icon for Sistemas Operacionais" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/DnDO5YfGEiQTCqJYOfIECMjhsw1S4GsyDDKWuojAXtxOCguTA.jpg" width="30"/> Sistemas Operacionais</td>
+                        <td>Segunda-Feira</td>
+                        <td>4 Horas</td>
+                        <td class="actions">
+                            <i class="fas fa-edit" style="color: #ffc107;"></i>
+                            <i class="fas fa-trash" style="color: red;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Meta 2</td>
+                        <td><img alt="Icon for Computação em Nuvem" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/iSh6zYeh38X1TCf75sj5TgdeKzJLQL0Musfy1epAGlEHSA0dC.jpg" width="30"/> Computação em Nuvem</td>
+                        <td>Quinta-Feira</td>
+                        <td>2 Horas</td>
+                        <td class="actions">
+                            <i class="fas fa-edit" style="color: #ffc107;"></i>
+                            <i class="fas fa-trash" style="color: red;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Meta 3</td>
+                        <td><img alt="Icon for Desenvolvimento Web" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/O2odyphiof3BWKLxbQWxhhyeYKiE4OwIufmuWVjSg9SeIA6OB.jpg" width="30"/> Desenvolvimento Web</td>
+                        <td>Terça-Feira</td>
+                        <td>2 Horas</td>
+                        <td class="actions">
+                            <i class="fas fa-edit" style="color: #ffc107;"></i>
+                            <i class="fas fa-trash" style="color: red;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Meta 4</td>
+                        <td><img alt="Icon for Estrutura de Dados" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/myUKJEalvroPIRSUH6ypaY665lZmbR5ii4AipDr1wWdkAo7E.jpg" width="30"/> Estrutura de Dados</td>
+                        <td>Segunda-Feira</td>
+                        <td>3 Horas</td>
+                        <td class="actions">
+                            <i class="fas fa-edit" style="color: #ffc107;"></i>
+                            <i class="fas fa-trash" style="color: red;"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    
+    <div class="footer">
+        <div class="footer-content">
+            <div class="brand">
+                <h3>Team<span style="color:#d4a017;">Study</span></h3>
+                <p>© Alguns direitos reservados.</p>
+            </div>
+            <div class="support-follow">
+                <div>
+                    <h3>Suporte</h3>
+                    <ul>
+                        <li><a href="#">Primeiros passos</a></li>
+                        <li><a href="#">Central de ajuda</a></li>
+                        <li><a href="#">Status do servidor</a></li>
+                        <li><a href="#">Relatar um erro</a></li>
+                        <li><a href="#">Suporte por chat</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Siga-nos</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="main.js"></script>
+</body>
+</html>

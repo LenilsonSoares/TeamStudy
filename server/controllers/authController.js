@@ -1,12 +1,13 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { connectDB } = require('../config/db');
 const nodemailer = require('nodemailer');
 
 // Criar um transporter usando as credenciais do Mailtrap
 const transporter = nodemailer.createTransport({
-    host: 'sandbox.smtp.mailtrap.io',
-    port: 2525, // ou 465, 587, 25 dependendo da sua configuração
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     auth: {
         user: process.env.EMAIL_USER,  // Seu nome de usuário do Mailtrap
         pass: process.env.EMAIL_PASS   // Sua senha do Mailtrap
@@ -17,7 +18,8 @@ exports.register = async (req, res) => {
     const { email, nome_usuario, senha } = req.body;
 
     try {
-        let user = await User.findByEmail(email);
+        const db = await connectDB();
+        let user = await User.findByEmail(email, db);
         if (user) {
             return res.status(400).json({ msg: 'Usuário já existe' });
         }
@@ -25,7 +27,7 @@ exports.register = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(senha, salt);
 
-        user = await User.create(nome_usuario, nome_usuario, email, hashedPassword, '');
+        user = await User.create(nome_usuario, nome_usuario, email, hashedPassword, '', db);
 
         const payload = {
             user: {
@@ -52,14 +54,15 @@ exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
     try {
-        const user = await User.findByEmail(email);
+        const db = await connectDB();
+        const user = await User.findByEmail(email, db);
         if (!user) {
-            return res.status(400).json({ msg: 'Credenciais inválidas' });
+            return res.status(400).json({ msg: 'Usuário não encontrado' });
         }
 
         const isMatch = await bcrypt.compare(senha, user.senha);
         if (!isMatch) {
-            return res.status(400).json({ msg: 'Credenciais inválidas' });
+            return res.status(400).json({ msg: 'Senha incorreta' });
         }
 
         const payload = {
@@ -87,7 +90,8 @@ exports.recover = async (req, res) => {
     const { email } = req.body;
 
     try {
-        const user = await User.findByEmail(email);
+        const db = await connectDB();
+        const user = await User.findByEmail(email, db);
         if (!user) {
             return res.status(400).json({ msg: 'Usuário não encontrado' });
         }
@@ -116,9 +120,4 @@ exports.recover = async (req, res) => {
         console.error('Erro ao recuperar senha:', err.message);
         res.status(500).json({ msg: 'Erro no servidor', error: err.message });
     }
-};
-
-exports.logout = (req, res) => {
-    // Lógica de logout (se necessário)
-    res.status(200).json({ msg: 'Logout realizado com sucesso' });
 };

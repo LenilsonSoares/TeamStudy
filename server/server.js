@@ -5,6 +5,7 @@ const { connectDB, closeAllConnections } = require('./config/db');
 const cors = require('cors');
 const path = require('path');
 
+
 dotenv.config();
 
 const app = express();
@@ -44,7 +45,7 @@ const progressRoutes = require('./routes/progressRoutes');
 const scheduleRoutes = require('./routes/scheduleRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const userRoutes = require('./routes/userRoutes');
-const dashboardRoutes = require('./routes/dashboardRoutes'); // Adicione esta linha
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
@@ -55,7 +56,7 @@ app.use('/api/progress', progressRoutes);
 app.use('/api/schedules', scheduleRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/dashboard', dashboardRoutes); // Adicione esta linha
+app.use('/api/dashboard', dashboardRoutes);
 
 // Servir uma página inicial padrão
 app.get('/', (req, res) => {

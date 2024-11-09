@@ -1,10 +1,11 @@
 const express = require('express');
-const profileController = require('../controllers/profileController');
-const authMiddleware = require('../middlewares/authMiddleware');
-
 const router = express.Router();
+const profileController = require('../controllers/profileController');
 
-router.get('/me', authMiddleware, profileController.getProfile);
-router.put('/', authMiddleware, profileController.updateProfile);
+// Defina suas rotas aqui
+router.get('/', profileController.getProfile);
+router.post('/', profileController.createProfile);
+router.put('/:id', profileController.updateProfile);
+router.delete('/:id', profileController.deleteProfile);
 
 module.exports = router;

@@ -117,3 +117,8 @@ exports.recover = async (req, res) => {
         res.status(500).json({ msg: 'Erro no servidor', error: err.message });
     }
 };
+
+exports.logout = (req, res) => {
+    // Lógica de logout (se necessário)
+    res.status(200).json({ msg: 'Logout realizado com sucesso' });
+};

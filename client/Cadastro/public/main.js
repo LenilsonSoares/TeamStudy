@@ -13,16 +13,17 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
 
     try {
-        const response = await fetch('/api/register', {
+        const response = await fetch('http://localhost:3000/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, username, password })
+            body: JSON.stringify({ email, nome_usuario: username, senha: password })
         });
 
         if (response.ok) {
             const data = await response.json();
             alert('Cadastro realizado com sucesso!');
             // Redirecionar para a tela de login ou dashboard
+            window.location.href = '/entrar';
         } else {
             const errorData = await response.json();
             alert(`Erro ao realizar cadastro: ${errorData.message}`);

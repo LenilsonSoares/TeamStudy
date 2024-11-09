@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const path = require('path');
 
 dotenv.config();
 
@@ -20,6 +21,15 @@ connectDB().then(connection => {
         process.exit(1);
     }
 });
+
+// Servir arquivos estáticos de todas as pastas dentro de 'client'
+app.use('/cadastro', express.static(path.join(__dirname, '../client/Cadastro/public')));
+app.use('/cronograma', express.static(path.join(__dirname, '../client/Cronograma/public')));
+app.use('/cursos', express.static(path.join(__dirname, '../client/Cursos/public')));
+app.use('/dashboard', express.static(path.join(__dirname, '../client/Dashboard/public')));
+app.use('/entrar', express.static(path.join(__dirname, '../client/Entrar/public')));
+app.use('/home', express.static(path.join(__dirname, '../client/Home/public')));
+app.use('/perfil', express.static(path.join(__dirname, '../client/Perfil/public')));
 
 // Rotas
 const authRoutes = require('./routes/authRoutes');
@@ -41,6 +51,11 @@ app.use('/api/progress', progressRoutes);
 app.use('/api/schedules', scheduleRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
+
+// Servir uma página inicial padrão
+app.get('/', (req, res) => {
+    res.send('Bem-vindo ao TeamStudy!');
+});
 
 if (process.env.NODE_ENV !== 'test') {
     app.listen(port, () => {

@@ -1,15 +1,28 @@
-function login(event) {
-    event.preventDefault(); // Evita o envio do formulário para processar com JavaScript
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    // Captura os valores de email e senha
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
 
-    // Verifica as credenciais (Aqui você poderia usar uma API de backend para verificar)
-    if (email === "usuario@exemplo.com" && password === "senha123") {
-        // Login bem-sucedido - redireciona para o dashboard
-        window.location.href = "dashboard.html"; // Altere para o caminho do seu dashboard
-    } else {
-        alert("Email ou senha incorretos.");
+    try {
+        const response = await fetch('http://localhost:3000/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, senha: password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
+            alert('Login realizado com sucesso!');
+            // Redirecionar para a tela de dashboard
+            window.location.href = '/dashboard';
+        } else {
+            const errorData = await response.json();
+            alert(`Erro ao realizar login: ${errorData.message}`);
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao conectar com o servidor');
     }
-}
+});

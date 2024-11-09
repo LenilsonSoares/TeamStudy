@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
-router.post('/recover', authController.recover); // Certifique-se de que o controlador 'recover' está definido
+router.post('/recover', authController.recover);
 
 module.exports = router;

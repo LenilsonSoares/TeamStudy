@@ -1,49 +1,57 @@
-const db = require('../config/db')();
+const { connectDB } = require('../config/db');
 
-exports.createTask = (req, res) => {
-    const { descricao, data, prioridade, cronograma_id } = req.body;
-    const query = 'INSERT INTO Tarefas (descricao, data, prioridade, cronograma_id) VALUES (?, ?, ?, ?)';
-    db.query(query, [descricao, data, prioridade, cronograma_id], (err, results) => {
-        if (err) {
-            console.error('Erro ao criar tarefa:', err);
-            return res.status(500).json({ error: 'Erro ao criar tarefa' });
-        }
+exports.createTask = async (req, res) => {
+    const { usuario_id, titulo, descricao, data_inicio, data_fim, status } = req.body;
+    try {
+        const db = await connectDB();
+        const query = 'INSERT INTO Tarefas (usuario_id, titulo, descricao, data_inicio, data_fim, status) VALUES (?, ?, ?, ?, ?, ?)';
+        const [results] = await db.execute(query, [usuario_id, titulo, descricao, data_inicio, data_fim, status]);
+        db.release(); // Liberar a conexão de volta para o pool
         res.status(201).json({ id: results.insertId });
-    });
+    } catch (err) {
+        console.error('Erro ao criar tarefa:', err);
+        res.status(500).json({ error: 'Erro ao criar tarefa' });
+    }
 };
 
-exports.getTasks = (req, res) => {
-    const query = 'SELECT * FROM Tarefas';
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar tarefas:', err);
-            return res.status(500).json({ error: 'Erro ao buscar tarefas' });
-        }
+exports.getTasks = async (req, res) => {
+    try {
+        const db = await connectDB();
+        const query = 'SELECT * FROM Tarefas';
+        const [results] = await db.execute(query);
+        db.release(); // Liberar a conexão de volta para o pool
         res.json(results);
-    });
+    } catch (err) {
+        console.error('Erro ao buscar tarefas:', err);
+        res.status(500).json({ error: 'Erro ao buscar tarefas' });
+    }
 };
 
-exports.updateTask = (req, res) => {
+exports.updateTask = async (req, res) => {
     const { id } = req.params;
-    const { descricao, data, prioridade, cronograma_id } = req.body;
-    const query = 'UPDATE Tarefas SET descricao = ?, data = ?, prioridade = ?, cronograma_id = ? WHERE id = ?';
-    db.query(query, [descricao, data, prioridade, cronograma_id, id], (err, results) => {
-        if (err) {
-            console.error('Erro ao atualizar tarefa:', err);
-            return res.status(500).json({ error: 'Erro ao atualizar tarefa' });
-        }
+    const { titulo, descricao, data_inicio, data_fim, status } = req.body;
+    try {
+        const db = await connectDB();
+        const query = 'UPDATE Tarefas SET titulo = ?, descricao = ?, data_inicio = ?, data_fim = ?, status = ? WHERE id = ?';
+        const [results] = await db.execute(query, [titulo, descricao, data_inicio, data_fim, status, id]);
+        db.release(); // Liberar a conexão de volta para o pool
         res.json({ msg: 'Tarefa atualizada com sucesso' });
-    });
+    } catch (err) {
+        console.error('Erro ao atualizar tarefa:', err);
+        res.status(500).json({ error: 'Erro ao atualizar tarefa' });
+    }
 };
 
-exports.deleteTask = (req, res) => {
+exports.deleteTask = async (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM Tarefas WHERE id = ?';
-    db.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Erro ao excluir tarefa:', err);
-            return res.status(500).json({ error: 'Erro ao excluir tarefa' });
-        }
+    try {
+        const db = await connectDB();
+        const query = 'DELETE FROM Tarefas WHERE id = ?';
+        const [results] = await db.execute(query, [id]);
+        db.release(); // Liberar a conexão de volta para o pool
         res.json({ msg: 'Tarefa excluída com sucesso' });
-    });
+    } catch (err) {
+        console.error('Erro ao excluir tarefa:', err);
+        res.status(500).json({ error: 'Erro ao excluir tarefa' });
+    }
 };

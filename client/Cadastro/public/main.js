@@ -26,10 +26,10 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
             window.location.href = '/entrar';
         } else {
             const errorData = await response.json();
-            alert(`Erro ao realizar cadastro: ${errorData.message}`);
+            alert(`Erro ao realizar cadastro: ${errorData.msg}`);
         }
     } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro ao conectar com o servidor:', error);
         alert('Erro ao conectar com o servidor');
     }
 });

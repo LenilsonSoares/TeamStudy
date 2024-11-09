@@ -1,26 +1,30 @@
-const db = require('../config/db')();
+const { connectDB } = require('../config/db');
 
-exports.createProgress = (req, res) => {
+exports.createProgress = async (req, res) => {
     const { usuario_id, curso_id, progresso } = req.body;
-    const query = 'INSERT INTO Progresso (usuario_id, curso_id, progresso) VALUES (?, ?, ?)';
-    db.query(query, [usuario_id, curso_id, progresso], (err, results) => {
-        if (err) {
-            console.error('Erro ao registrar progresso:', err);
-            return res.status(500).json({ error: 'Erro ao registrar progresso' });
-        }
+    try {
+        const db = await connectDB();
+        const query = 'INSERT INTO Progresso (usuario_id, curso_id, progresso) VALUES (?, ?, ?)';
+        const [results] = await db.execute(query, [usuario_id, curso_id, progresso]);
+        db.release(); // Liberar a conexão de volta para o pool
         res.status(201).json({ id: results.insertId });
-    });
+    } catch (err) {
+        console.error('Erro ao criar progresso:', err);
+        res.status(500).json({ error: 'Erro ao criar progresso' });
+    }
 };
 
-exports.getProgress = (req, res) => {
-    const query = 'SELECT * FROM Progresso';
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar progresso:', err);
-            return res.status(500).json({ error: 'Erro ao buscar progresso' });
-        }
+exports.getProgress = async (req, res) => {
+    try {
+        const db = await connectDB();
+        const query = 'SELECT * FROM Progresso';
+        const [results] = await db.execute(query);
+        db.release(); // Liberar a conexão de volta para o pool
         res.json(results);
-    });
+    } catch (err) {
+        console.error('Erro ao buscar progresso:', err);
+        res.status(500).json({ error: 'Erro ao buscar progresso' });
+    }
 };
 
 exports.updateProgress = (req, res) => {

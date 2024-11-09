@@ -13,7 +13,6 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
         if (response.ok) {
             const data = await response.json();
-            localStorage.setItem('token', data.token);
             alert('Login realizado com sucesso!');
             // Redirecionar para a tela de dashboard
             window.location.href = '/dashboard';
@@ -22,7 +21,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             alert(`Erro ao realizar login: ${errorData.msg}`);
         }
     } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro ao conectar com o servidor:', error);
         alert('Erro ao conectar com o servidor');
     }
 });

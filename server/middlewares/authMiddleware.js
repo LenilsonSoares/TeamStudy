@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
 
     if (!token) {
-        return res.status(401).json({ msg: 'Sem token, autorização negada' });
+        return res.status(401).json({ msg: 'Nenhum token, autorização negada' });
     }
 
     try {

@@ -8,3 +8,4 @@ router.put('/', authMiddleware, profileController.updateProfile);
 router.get('/me', authMiddleware, profileController.getMe);
 
 module.exports = router;
+

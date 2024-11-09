@@ -11,13 +11,14 @@ document.getElementById('recover-form').addEventListener('submit', async (e) => 
         });
 
         if (response.ok) {
-            document.getElementById('success-message').style.display = 'block';
+            const data = await response.json();
+            alert('E-mail de recuperação enviado com sucesso!');
         } else {
             const errorData = await response.json();
-            alert(`Erro ao enviar e-mail de recuperação: ${errorData.message}`);
+            alert(`Erro ao enviar e-mail de recuperação: ${errorData.msg}`);
         }
     } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro ao conectar com o servidor:', error);
         alert('Erro ao conectar com o servidor');
     }
 });

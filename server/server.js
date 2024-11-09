@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const { connectDB, closeAllConnections } = require('./config/db');
+const cors = require('cors');
 const path = require('path');
 
 dotenv.config();
@@ -9,6 +10,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -42,6 +44,7 @@ const progressRoutes = require('./routes/progressRoutes');
 const scheduleRoutes = require('./routes/scheduleRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const userRoutes = require('./routes/userRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes'); // Adicione esta linha
 
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
@@ -52,6 +55,7 @@ app.use('/api/progress', progressRoutes);
 app.use('/api/schedules', scheduleRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/dashboard', dashboardRoutes); // Adicione esta linha
 
 // Servir uma página inicial padrão
 app.get('/', (req, res) => {
@@ -63,5 +67,11 @@ if (process.env.NODE_ENV !== 'test') {
         console.log(`Servidor rodando na porta ${port}`);
     });
 }
+
+// Encerrar todas as conexões ao banco de dados ao encerrar o servidor
+process.on('SIGINT', async () => {
+    await closeAllConnections();
+    process.exit(0);
+});
 
 module.exports = app;

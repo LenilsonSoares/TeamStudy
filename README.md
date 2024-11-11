@@ -1,3 +1,4 @@
+
 # TeamStudy - Documentação de Projeto 🎓📚
 
 ![TeamStudy Logo](https://via.placeholder.com/150)
@@ -34,55 +35,53 @@ Clone este repositório para o seu ambiente local:
 ```bash
 git clone https://github.com/seu-usuario/teamstudy.git
 cd teamstudy
-Passo 2: Instalando as Dependências
-Instale as dependências do servidor no diretório server:
+```
 
-bash
-Copiar código
+### Passo 2: Instalando as Dependências
+
+Instale as dependências do servidor no diretório `server`:
+
+```bash
 cd server
 npm install
-Passo 3: Configuração do Banco de Dados
-Crie o banco de dados no MySQL:
-sql
-Copiar código
-CREATE DATABASE testestudy;
-USE testestudy;
-Crie a tabela de usuários:
-sql
-Copiar código
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-Passo 4: Configuração do Ambiente
-Crie o arquivo .env na pasta server e configure as variáveis de ambiente necessárias:
+```
 
-env
-Copiar código
+### Passo 3: Configuração do Ambiente
+
+Crie o arquivo `.env` na pasta `server` e configure as variáveis de ambiente necessárias
+
+
+```properties
+
 DB_HOST=db4free.net
 DB_USER=teamunex
 DB_PASS=12345678
 DB_NAME=testestudy
-JWT_SECRET=sua_chave_secreta
-Passo 5: Iniciando o Servidor
+JWT_SECRET=df73f01f30f02071c7120920ee1d06ec531daaee7b5182013da569a38c27eab91e5d23e4e1b01f8dc063d4e89bcf8ecfc728cbcd17113443da90fde13067979f
+EMAIL_USER=3c9cdb5096ceba
+EMAIL_PASS=14f03fa3854f15
+EMAIL_HOST=sandbox.smtp.mailtrap.io
+EMAIL_PORT=2525
+PORT=3000
+```
+
+### Passo 4: Iniciando o Servidor
+
 Execute o servidor com o comando abaixo:
 
-bash
-Copiar código
+```bash
 node server.js
-Agora, a aplicação estará disponível no endereço http://localhost:5000 🌐.
+```
 
-Estrutura do Projeto 📁
+Agora, a aplicação estará disponível no endereço [http://localhost:5000](http://localhost:5000) 🌐.
+
+## Estrutura do Projeto 📁
+
 A estrutura de diretórios do projeto é organizada da seguinte forma:
 
-bash
-Copiar código
+```bash
 teamstudy/                     # Raiz do projeto
-project/
-├── client/
+├── client/                    # Frontend
 │   ├── Cadastro/
 │   │   ├── public/
 │   │   │   ├── index.html
@@ -118,7 +117,7 @@ project/
 │   │   │   ├── index.html
 │   │   │   ├── styles.css
 │   │   │   ├── main.js
-├── server/
+├── server/                    # Backend
 │   ├── config/
 │   │   ├── db.js
 │   ├── controllers/
@@ -138,89 +137,119 @@ project/
 │   ├── server.js
 │   ├── package.json
 │   └── Procfile
-Rotas da API 🌍
-Autenticação 🔐
-Registrar Usuário 📝
-URL: /api/auth/register
-Método: POST
-Corpo da Requisição:
-json
-Copiar código
+```
+
+## Rotas da API 🌍
+
+### Autenticação 🔐
+
+#### Registrar Usuário 📝
+
+- **URL**: `/api/auth/register`
+- **Método**: `POST`
+- **Corpo da Requisição**:
+
+```json
 {
     "name": "Nome do Usuário",
     "email": "usuario@example.com",
     "password": "senha_segura"
 }
-Login de Usuário 🔑
-URL: /api/auth/login
-Método: POST
-Corpo da Requisição:
-json
-Copiar código
+```
+
+#### Login de Usuário 🔑
+
+- **URL**: `/api/auth/login`
+- **Método**: `POST`
+- **Corpo da Requisição**:
+
+```json
 {
     "email": "usuario@example.com",
     "password": "senha_segura"
 }
-Usuários 👤
-Obter Usuário Autenticado 👀
-URL: /api/users/me
-Método: GET
-Cabeçalhos:
-x-auth-token: token_jwt_obtido_no_login
-Manutenção e Operações ⚙️
-Atualização de Dependências 🔄
+```
+
+### Usuários 👤
+
+#### Obter Usuário Autenticado 👀
+
+- **URL**: `/api/users/me`
+- **Método**: `GET`
+- **Cabeçalhos**:
+  - `x-auth-token`: `token_jwt_obtido_no_login`
+
+## Manutenção e Operações ⚙️
+
+### Atualização de Dependências 🔄
+
 Para atualizar as dependências do projeto, execute o comando:
 
-bash
-Copiar código
+```bash
 npm update
-Executando Testes ✅
+```
+
+### Executando Testes ✅
+
 Para rodar os testes unitários e de integração, execute:
 
-bash
-Copiar código
+```bash
 npm test
-Logs e Monitoramento 📊
+```
+
+### Logs e Monitoramento 📊
+
 Para monitorar o servidor, utilize ferramentas como pm2 ou forever para garantir que a aplicação esteja sempre em execução.
 
-Instalar pm2 🚀
-bash
-Copiar código
+#### Instalar pm2 🚀
+
+```bash
 npm install pm2 -g
-Iniciar o Servidor com pm2 🔥
-bash
-Copiar código
+```
+
+#### Iniciar o Servidor com pm2 🔥
+
+```bash
 pm2 start server.js
-Verificar Logs com pm2 📈
-bash
-Copiar código
+```
+
+#### Verificar Logs com pm2 📈
+
+```bash
 pm2 logs
-Contribuição 💡
+```
+
+## Contribuição 💡
+
 Se você deseja contribuir para o projeto, siga os passos abaixo:
 
-Faça um fork do repositório 🍴.
+1. Faça um fork do repositório 🍴.
+2. Crie uma nova branch para sua feature:
 
-Crie uma nova branch para sua feature:
-
-bash
-Copiar código
+```bash
 git checkout -b feature/nova-feature
-Realize as alterações necessárias e faça um commit:
+```
 
-bash
-Copiar código
+3. Realize as alterações necessárias e faça um commit:
+
+```bash
 git commit -am 'Adiciona nova feature'
-Envie as alterações para o seu fork:
+```
 
-bash
-Copiar código
+4. Envie as alterações para o seu fork:
+
+```bash
 git push origin feature/nova-feature
-Abra um Pull Request para o repositório principal. 🎉
+```
 
-Licença 📜
+5. Abra um Pull Request para o repositório principal. 🎉
+
+## Licença 📜
+
 Este projeto está licenciado sob a licença MIT. Para mais informações, consulte o arquivo LICENSE.
 
-<img alt="GitHub" src="https://img.shields.io/github/license/seu-usuario/teamstudy"> <img alt="GitHub issues" src="https://img.shields.io/github/issues/seu-usuario/teamstudy"> <img alt="GitHub forks" src="https://img.shields.io/github/forks/seu-usuario/teamstudy"> <img alt="GitHub stars" src="https://img.shields.io/github/stars/seu-usuario/teamstudy"> <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/seu-usuario/teamstudy">
-Conclusão 🎯
-Esta documentação fornece uma visão detalhada e bem estruturada do TeamStudy, permitindo que novos desenvolvedores ou colaboradores possam entender rapidamente a arquitetura e os fluxos do projeto. Se houverem dúvidas ou sugestões, sinta-se à vontade para abrir uma issue ou contribuir diretamente. 🚀
+![GitHub](https://img.shields.io/github/license/seu-usuario/teamstudy) ![GitHub issues](https://img.shields.io/github/issues/seu-usuario/teamstudy) ![GitHub forks](https://img.shields.io/github/forks/seu-usuario/teamstudy) ![GitHub stars](https://img.shields.io/github/stars/seu-usuario/teamstudy) ![GitHub watchers](https://img.shields.io/github/watchers/seu-usuario/teamstudy)
 
+## Conclusão 🎯
+
+Esta documentação fornece uma visão detalhada e bem estruturada do TeamStudy, permitindo que novos desenvolvedores ou colaboradores possam entender rapidamente a arquitetura e os fluxos do projeto. Se houverem dúvidas ou sugestões, sinta-se à vontade para abrir uma issue ou contribuir diretamente. 🚀

@@ -73,7 +73,7 @@ Execute o servidor com o comando abaixo:
 node server.js
 ```
 
-Agora, a aplicação estará disponível no endereço [http://localhost:5000](http://localhost:5000) 🌐.
+Agora, a aplicação estará disponível no endereço [http://localhost:3000](http://localhost:3000) 🌐.
 
 ## Estrutura do Projeto 📁
 

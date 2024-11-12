@@ -1,57 +1,54 @@
-const { connectDB } = require('../config/db');
+const { validationResult } = require('express-validator');
 
-exports.createSchedule = async (req, res) => {
+// Função para criar um novo cronograma
+exports.createSchedule = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { usuario_id, titulo, descricao, data_inicio, data_fim } = req.body;
     try {
-        const db = await connectDB();
         const query = 'INSERT INTO Cronogramas (usuario_id, titulo, descricao, data_inicio, data_fim) VALUES (?, ?, ?, ?, ?)';
-        const [results] = await db.execute(query, [usuario_id, titulo, descricao, data_inicio, data_fim]);
-        db.release(); // Liberar a conexão de volta para o pool
+        const [results] = await req.db.execute(query, [usuario_id, titulo, descricao, data_inicio, data_fim]);
         res.status(201).json({ id: results.insertId });
     } catch (err) {
-        console.error('Erro ao criar cronograma:', err);
-        res.status(500).json({ error: 'Erro ao criar cronograma' });
+        next(err);
     }
 };
 
-exports.getSchedules = async (req, res) => {
+// Função para buscar cronogramas
+exports.getSchedules = async (req, res, next) => {
     try {
-        const db = await connectDB();
         const query = 'SELECT * FROM Cronogramas';
-        const [results] = await db.execute(query);
-        db.release(); // Liberar a conexão de volta para o pool
+        const [results] = await req.db.execute(query);
         res.json(results);
     } catch (err) {
-        console.error('Erro ao buscar cronogramas:', err);
-        res.status(500).json({ error: 'Erro ao buscar cronogramas' });
+        next(err);
     }
 };
 
-exports.updateSchedule = async (req, res) => {
+// Função para atualizar cronograma
+exports.updateSchedule = async (req, res, next) => {
     const { id } = req.params;
     const { titulo, descricao, data_inicio, data_fim } = req.body;
     try {
-        const db = await connectDB();
         const query = 'UPDATE Cronogramas SET titulo = ?, descricao = ?, data_inicio = ?, data_fim = ? WHERE id = ?';
-        const [results] = await db.execute(query, [titulo, descricao, data_inicio, data_fim, id]);
-        db.release(); // Liberar a conexão de volta para o pool
+        await req.db.execute(query, [titulo, descricao, data_inicio, data_fim, id]);
         res.json({ msg: 'Cronograma atualizado com sucesso' });
     } catch (err) {
-        console.error('Erro ao atualizar cronograma:', err);
-        res.status(500).json({ error: 'Erro ao atualizar cronograma' });
+        next(err);
     }
 };
 
-exports.deleteSchedule = async (req, res) => {
+// Função para excluir cronograma
+exports.deleteSchedule = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const db = await connectDB();
         const query = 'DELETE FROM Cronogramas WHERE id = ?';
-        const [results] = await db.execute(query, [id]);
-        db.release(); // Liberar a conexão de volta para o pool
+        await req.db.execute(query, [id]);
         res.json({ msg: 'Cronograma excluído com sucesso' });
     } catch (err) {
-        console.error('Erro ao excluir cronograma:', err);
-        res.status(500).json({ error: 'Erro ao excluir cronograma' });
+        next(err);
     }
 };

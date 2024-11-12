@@ -1,21 +1,33 @@
-const db = require('../config/db')();
+const { connectDB } = require('../config/db');
 
 const Subscription = {
-    create: (usuario_id, plano_id, callback) => {
+    create: async (usuario_id, plano_id) => {
+        const db = await connectDB();
         const query = 'INSERT INTO Assinaturas (usuario_id, plano_id) VALUES (?, ?)';
-        db.query(query, [usuario_id, plano_id], callback);
+        const [results] = await db.execute(query, [usuario_id, plano_id]);
+        db.release();
+        return results;
     },
-    findAll: (callback) => {
+    findAll: async () => {
+        const db = await connectDB();
         const query = 'SELECT * FROM Assinaturas';
-        db.query(query, callback);
+        const [results] = await db.execute(query);
+        db.release();
+        return results;
     },
-    findById: (id, callback) => {
+    findById: async (id) => {
+        const db = await connectDB();
         const query = 'SELECT * FROM Assinaturas WHERE id = ?';
-        db.query(query, [id], callback);
+        const [results] = await db.execute(query, [id]);
+        db.release();
+        return results[0];
     },
-    delete: (id, callback) => {
+    delete: async (id) => {
+        const db = await connectDB();
         const query = 'DELETE FROM Assinaturas WHERE id = ?';
-        db.query(query, [id], callback);
+        const [results] = await db.execute(query, [id]);
+        db.release();
+        return results;
     }
 };
 

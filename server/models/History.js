@@ -1,21 +1,33 @@
-const db = require('../config/db')();
+const { connectDB } = require('../config/db');
 
 const History = {
-    createLessonHistory: (usuario_id, curso_id, titulo, descricao, callback) => {
+    createLessonHistory: async (usuario_id, curso_id, titulo, descricao) => {
+        const db = await connectDB();
         const query = 'INSERT INTO HistoricoAulas (usuario_id, curso_id, titulo, descricao) VALUES (?, ?, ?, ?)';
-        db.query(query, [usuario_id, curso_id, titulo, descricao], callback);
+        const [results] = await db.execute(query, [usuario_id, curso_id, titulo, descricao]);
+        db.release();
+        return results;
     },
-    findAllLessonHistory: (callback) => {
+    findAllLessonHistory: async () => {
+        const db = await connectDB();
         const query = 'SELECT * FROM HistoricoAulas';
-        db.query(query, callback);
+        const [results] = await db.execute(query);
+        db.release();
+        return results;
     },
-    createCourseHistory: (usuario_id, curso_id, status, progresso, callback) => {
+    createCourseHistory: async (usuario_id, curso_id, status, progresso) => {
+        const db = await connectDB();
         const query = 'INSERT INTO HistoricoCursos (usuario_id, curso_id, status, progresso) VALUES (?, ?, ?, ?)';
-        db.query(query, [usuario_id, curso_id, status, progresso], callback);
+        const [results] = await db.execute(query, [usuario_id, curso_id, status, progresso]);
+        db.release();
+        return results;
     },
-    findAllCourseHistory: (callback) => {
+    findAllCourseHistory: async () => {
+        const db = await connectDB();
         const query = 'SELECT * FROM HistoricoCursos';
-        db.query(query, callback);
+        const [results] = await db.execute(query);
+        db.release();
+        return results;
     }
 };
 

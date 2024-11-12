@@ -1,17 +1,26 @@
-const db = require('../config/db')();
+const { connectDB } = require('../config/db');
 
 const Progress = {
-    create: (usuario_id, curso_id, progresso, callback) => {
+    create: async (usuario_id, curso_id, progresso) => {
+        const db = await connectDB();
         const query = 'INSERT INTO Progresso (usuario_id, curso_id, progresso) VALUES (?, ?, ?)';
-        db.query(query, [usuario_id, curso_id, progresso], callback);
+        const [results] = await db.execute(query, [usuario_id, curso_id, progresso]);
+        db.release();
+        return results;
     },
-    findAll: (callback) => {
+    findAll: async () => {
+        const db = await connectDB();
         const query = 'SELECT * FROM Progresso';
-        db.query(query, callback);
+        const [results] = await db.execute(query);
+        db.release();
+        return results;
     },
-    findById: (id, callback) => {
+    findById: async (id) => {
+        const db = await connectDB();
         const query = 'SELECT * FROM Progresso WHERE id = ?';
-        db.query(query, [id], callback);
+        const [results] = await db.execute(query, [id]);
+        db.release();
+        return results[0];
     }
 };
 

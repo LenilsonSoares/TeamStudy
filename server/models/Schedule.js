@@ -1,25 +1,40 @@
-const db = require('../config/db')();
+const { connectDB } = require('../config/db');
 
 const Schedule = {
-    create: (nome, usuario_id, callback) => {
+    create: async (nome, usuario_id) => {
+        const db = await connectDB();
         const query = 'INSERT INTO Cronogramas (nome, usuario_id) VALUES (?, ?)';
-        db.query(query, [nome, usuario_id], callback);
+        const [results] = await db.execute(query, [nome, usuario_id]);
+        db.release();
+        return results;
     },
-    findAll: (callback) => {
+    findAll: async () => {
+        const db = await connectDB();
         const query = 'SELECT * FROM Cronogramas';
-        db.query(query, callback);
+        const [results] = await db.execute(query);
+        db.release();
+        return results;
     },
-    findById: (id, callback) => {
+    findById: async (id) => {
+        const db = await connectDB();
         const query = 'SELECT * FROM Cronogramas WHERE id = ?';
-        db.query(query, [id], callback);
+        const [results] = await db.execute(query, [id]);
+        db.release();
+        return results[0];
     },
-    update: (id, nome, usuario_id, callback) => {
+    update: async (id, nome, usuario_id) => {
+        const db = await connectDB();
         const query = 'UPDATE Cronogramas SET nome = ?, usuario_id = ? WHERE id = ?';
-        db.query(query, [nome, usuario_id, id], callback);
+        const [results] = await db.execute(query, [nome, usuario_id, id]);
+        db.release();
+        return results;
     },
-    delete: (id, callback) => {
+    delete: async (id) => {
+        const db = await connectDB();
         const query = 'DELETE FROM Cronogramas WHERE id = ?';
-        db.query(query, [id], callback);
+        const [results] = await db.execute(query, [id]);
+        db.release();
+        return results;
     }
 };
 

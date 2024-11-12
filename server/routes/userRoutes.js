@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/me', authMiddleware, userController.getMe);
 router.delete('/me', authMiddleware, userController.deleteMe);
-router.get('/', authMiddleware, userController.getAllUsers); // Adicione esta linha
+router.get('/', authMiddleware, userController.getAllUsers); // Adicionada a rota para obter todos os usuários
 
 module.exports = router;

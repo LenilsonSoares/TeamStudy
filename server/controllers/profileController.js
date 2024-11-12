@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const User = require('../models/User');
 
+// Função para atualizar o perfil do usuário
 exports.updateProfile = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -30,6 +31,7 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
+// Função para obter os dados do perfil do usuário logado
 exports.getMe = async (req, res) => {
     const userId = req.user.id;
 
@@ -47,6 +49,7 @@ exports.getMe = async (req, res) => {
     }
 };
 
+// Função para obter os dados do perfil de um usuário específico
 exports.getProfile = async (req, res) => {
     const userId = req.params.id;
 
@@ -64,6 +67,7 @@ exports.getProfile = async (req, res) => {
     }
 };
 
+// Função para criar um novo perfil de usuário
 exports.createProfile = async (req, res) => {
     const { nome, nome_usuario, email, senha, avatar } = req.body;
 
@@ -80,6 +84,7 @@ exports.createProfile = async (req, res) => {
     }
 };
 
+// Função para deletar um perfil de usuário
 exports.deleteProfile = async (req, res) => {
     const userId = req.params.id;
 

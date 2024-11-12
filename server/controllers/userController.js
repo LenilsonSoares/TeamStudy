@@ -1,6 +1,8 @@
+const { validationResult } = require('express-validator');
 const User = require('../models/User');
 
-exports.getMe = async (req, res) => {
+// Função para obter os dados do usuário logado
+exports.getMe = async (req, res, next) => {
     const userId = req.user.id;
 
     try {
@@ -12,12 +14,12 @@ exports.getMe = async (req, res) => {
 
         res.json(user);
     } catch (err) {
-        console.error('Erro ao buscar usuário:', err);
-        res.status(500).json({ error: 'Erro ao buscar usuário' });
+        next(err);
     }
 };
 
-exports.deleteMe = async (req, res) => {
+// Função para excluir o usuário logado
+exports.deleteMe = async (req, res, next) => {
     const userId = req.user.id;
 
     try {
@@ -31,17 +33,16 @@ exports.deleteMe = async (req, res) => {
 
         res.json({ msg: 'Usuário excluído com sucesso' });
     } catch (err) {
-        console.error('Erro ao excluir usuário:', err);
-        res.status(500).json({ error: 'Erro ao excluir usuário' });
+        next(err);
     }
 };
 
-exports.getAllUsers = async (req, res) => {
+// Função para buscar todos os usuários
+exports.getAllUsers = async (req, res, next) => {
     try {
         const users = await User.findAll();
         res.json(users);
     } catch (err) {
-        console.error('Erro ao buscar usuários:', err);
-        res.status(500).json({ error: 'Erro ao buscar usuários' });
+        next(err);
     }
 };

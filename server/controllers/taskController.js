@@ -1,57 +1,54 @@
-const { connectDB } = require('../config/db');
+const { validationResult } = require('express-validator');
 
-exports.createTask = async (req, res) => {
+// Função para criar uma nova tarefa
+exports.createTask = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { usuario_id, titulo, descricao, data_inicio, data_fim, status } = req.body;
     try {
-        const db = await connectDB();
         const query = 'INSERT INTO Tarefas (usuario_id, titulo, descricao, data_inicio, data_fim, status) VALUES (?, ?, ?, ?, ?, ?)';
-        const [results] = await db.execute(query, [usuario_id, titulo, descricao, data_inicio, data_fim, status]);
-        db.release(); // Liberar a conexão de volta para o pool
+        const [results] = await req.db.execute(query, [usuario_id, titulo, descricao, data_inicio, data_fim, status]);
         res.status(201).json({ id: results.insertId });
     } catch (err) {
-        console.error('Erro ao criar tarefa:', err);
-        res.status(500).json({ error: 'Erro ao criar tarefa' });
+        next(err);
     }
 };
 
-exports.getTasks = async (req, res) => {
+// Função para buscar todas as tarefas
+exports.getTasks = async (req, res, next) => {
     try {
-        const db = await connectDB();
         const query = 'SELECT * FROM Tarefas';
-        const [results] = await db.execute(query);
-        db.release(); // Liberar a conexão de volta para o pool
+        const [results] = await req.db.execute(query);
         res.json(results);
     } catch (err) {
-        console.error('Erro ao buscar tarefas:', err);
-        res.status(500).json({ error: 'Erro ao buscar tarefas' });
+        next(err);
     }
 };
 
-exports.updateTask = async (req, res) => {
+// Função para atualizar uma tarefa existente
+exports.updateTask = async (req, res, next) => {
     const { id } = req.params;
     const { titulo, descricao, data_inicio, data_fim, status } = req.body;
     try {
-        const db = await connectDB();
         const query = 'UPDATE Tarefas SET titulo = ?, descricao = ?, data_inicio = ?, data_fim = ?, status = ? WHERE id = ?';
-        const [results] = await db.execute(query, [titulo, descricao, data_inicio, data_fim, status, id]);
-        db.release(); // Liberar a conexão de volta para o pool
+        await req.db.execute(query, [titulo, descricao, data_inicio, data_fim, status, id]);
         res.json({ msg: 'Tarefa atualizada com sucesso' });
     } catch (err) {
-        console.error('Erro ao atualizar tarefa:', err);
-        res.status(500).json({ error: 'Erro ao atualizar tarefa' });
+        next(err);
     }
 };
 
-exports.deleteTask = async (req, res) => {
+// Função para excluir uma tarefa existente
+exports.deleteTask = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const db = await connectDB();
         const query = 'DELETE FROM Tarefas WHERE id = ?';
-        const [results] = await db.execute(query, [id]);
-        db.release(); // Liberar a conexão de volta para o pool
+        await req.db.execute(query, [id]);
         res.json({ msg: 'Tarefa excluída com sucesso' });
     } catch (err) {
-        console.error('Erro ao excluir tarefa:', err);
-        res.status(500).json({ error: 'Erro ao excluir tarefa' });
+        next(err);
     }
 };

@@ -1,10 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { connectDB, closeAllConnections } = require('./config/db');
 const cors = require('cors');
 const path = require('path');
-
 
 dotenv.config();
 
@@ -12,8 +10,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Conectar ao banco de dados
 connectDB().then(connection => {
@@ -61,6 +59,12 @@ app.use('/api/dashboard', dashboardRoutes);
 // Servir uma página inicial padrão
 app.get('/', (req, res) => {
     res.send('Bem-vindo ao TeamStudy!');
+});
+
+// Middleware de tratamento de erros
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Algo deu errado!');
 });
 
 if (process.env.NODE_ENV !== 'test') {

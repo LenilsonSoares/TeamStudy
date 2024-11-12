@@ -14,19 +14,3 @@ exports.getDashboard = async (req, res) => {
     }
 };
 
-/**
- * Explicação:
- * 
- * getDashboard: Função para buscar dados do dashboard.
- * req: Objeto de requisição HTTP.
- * res: Objeto de resposta HTTP.
- * try: Bloco de código que tenta executar a lógica principal e captura erros se ocorrerem.
- * db = await connectDB(): Conecta ao banco de dados.
- * query = 'SELECT * FROM DashboardData': Define a query SQL para buscar dados do dashboard. Você pode ajustar essa consulta conforme necessário para buscar os dados específicos do seu dashboard.
- * db.execute(query): Executa a query SQL e armazena os resultados na variável results.
- * db.release(): Libera a conexão de volta para o pool de conexões.
- * res.json(results): Retorna os resultados da query como resposta JSON.
- * catch (err): Bloco de código que captura erros se ocorrerem durante a execução do bloco try.
- * console.error('Erro ao buscar dados do dashboard:', err.message): Loga o erro no console.
- * res.status(500).json({ error: 'Erro ao buscar dados do dashboard' }): Retorna erro 500 se ocorrer algum problema no servidor.
- */

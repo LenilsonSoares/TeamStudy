@@ -355,3 +355,51 @@ body {
   font-size: 18px;
   margin: 0;
 }
+/* Estilos para o modal */
+.modal {
+  display: none; /* Oculto por padrão */
+  position: fixed; /* Fica fixo na tela */
+  z-index: 1; /* Fica na frente de outros elementos */
+  left: 0;
+  top: 0;
+  width: 100%; /* Largura total */
+  height: 100%; /* Altura total */
+  overflow: auto; /* Habilita rolagem se necessário */
+  background-color: rgb(0,0,0); /* Cor de fundo preta */
+  background-color: rgba(0,0,0,0.4); /* Fundo com opacidade */
+  animation: fadeIn 0.5s; /* Animação de fade in */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% do topo e centralizado */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Largura do modal */
+  animation: slideIn 0.5s; /* Animação de slide in */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideIn {
+  from {transform: translateY(-50px);}
+  to {transform: translateY(0);}
+}

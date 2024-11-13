@@ -1,8 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <title>TeamStudy Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamStudy Cronograma</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -65,60 +68,47 @@
 
             <div class="goals" style="width: 90%;">
                 <h2>Minhas Metas
-                    <button class="add-button"><i class="fas fa-plus"></i> Adicionar</button>
+                    <button class="add-button" id="add-meta-btn"><i class="fas fa-plus"></i> Adicionar</button>
                 </h2>
                 <table>
-                    <tr>
-                        <th>Título</th>
-                        <th>Curso</th>
-                        <th>Dia</th>
-                        <th>Duração</th>
-                        <th>Ação</th>
-                    </tr>
-                    <tr>
-                        <td>Meta 1</td>
-                        <td><img alt="Icon for Sistemas Operacionais" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/DnDO5YfGEiQTCqJYOfIECMjhsw1S4GsyDDKWuojAXtxOCguTA.jpg" width="30"/> Sistemas Operacionais</td>
-                        <td>Segunda-Feira</td>
-                        <td>4 Horas</td>
-                        <td class="actions">
-                            <i class="fas fa-edit" style="color: #ffc107;"></i>
-                            <i class="fas fa-trash" style="color: red;"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Meta 2</td>
-                        <td><img alt="Icon for Computação em Nuvem" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/iSh6zYeh38X1TCf75sj5TgdeKzJLQL0Musfy1epAGlEHSA0dC.jpg" width="30"/> Computação em Nuvem</td>
-                        <td>Quinta-Feira</td>
-                        <td>2 Horas</td>
-                        <td class="actions">
-                            <i class="fas fa-edit" style="color: #ffc107;"></i>
-                            <i class="fas fa-trash" style="color: red;"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Meta 3</td>
-                        <td><img alt="Icon for Desenvolvimento Web" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/O2odyphiof3BWKLxbQWxhhyeYKiE4OwIufmuWVjSg9SeIA6OB.jpg" width="30"/> Desenvolvimento Web</td>
-                        <td>Terça-Feira</td>
-                        <td>2 Horas</td>
-                        <td class="actions">
-                            <i class="fas fa-edit" style="color: #ffc107;"></i>
-                            <i class="fas fa-trash" style="color: red;"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Meta 4</td>
-                        <td><img alt="Icon for Estrutura de Dados" class="course-icon" height="30" src="https://storage.googleapis.com/a1aa/image/myUKJEalvroPIRSUH6ypaY665lZmbR5ii4AipDr1wWdkAo7E.jpg" width="30"/> Estrutura de Dados</td>
-                        <td>Segunda-Feira</td>
-                        <td>3 Horas</td>
-                        <td class="actions">
-                            <i class="fas fa-edit" style="color: #ffc107;"></i>
-                            <i class="fas fa-trash" style="color: red;"></i>
-                        </td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Curso</th>
+                            <th>Dia</th>
+                            <th>Duração</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="metas-list">
+                        <!-- As metas serão inseridas aqui -->
+                    </tbody>
                 </table>
             </div>
         </div>
-    
+    </div>
+
+    <div id="add-meta-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Adicionar Meta</h2>
+            <form id="add-meta-form">
+                <input type="hidden" id="meta-id">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required>
+                <label for="curso">Curso:</label>
+                <select id="curso" name="curso" required>
+                    <!-- Os cursos serão inseridos aqui -->
+                </select>
+                <label for="dia">Dia:</label>
+                <input type="text" id="dia" name="dia" required>
+                <label for="duracao">Duração (horas):</label>
+                <input type="number" id="duracao" name="duracao" required>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+
     <div class="footer">
         <div class="footer-content">
             <div class="brand">
@@ -148,7 +138,8 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

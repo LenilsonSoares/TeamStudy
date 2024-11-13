@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('titulo').value = '';
         document.getElementById('curso').value = '';
         document.getElementById('dia').value = '';
+        document.getElementById('hora').value = '';
         document.getElementById('duracao').value = '';
         document.getElementById('add-meta-modal').style.display = 'block';
     };
@@ -129,80 +130,69 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('modal-title').textContent = 'Editar Meta';
         document.getElementById('meta-id').value = meta.id;
         document.getElementById('titulo').value = meta.titulo;
-        document.getElementById('curso').value = meta.Curso.nome;
+        document.getElementById('curso').value = meta.curso_id;
         document.getElementById('dia').value = meta.dia;
+        document.getElementById('hora').value = meta.hora;
         document.getElementById('duracao').value = meta.duracao;
         document.getElementById('add-meta-modal').style.display = 'block';
     };
 
-    // Fechar o modal
+    // Evento para abrir o modal de adicionar meta
+    document.getElementById('add-meta-btn').addEventListener('click', openAddModal);
+
+    // Evento para fechar o modal de adicionar meta
     document.querySelector('.close').addEventListener('click', () => {
         document.getElementById('add-meta-modal').style.display = 'none';
     });
 
-    // Salvar meta ao enviar o formulário
+    // Evento para adicionar ou editar uma meta
     document.getElementById('add-meta-form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const meta = {
-            id: document.getElementById('meta-id').value,
-            titulo: document.getElementById('titulo').value,
-            Curso: { nome: document.getElementById('curso').value },
-            dia: document.getElementById('dia').value,
-            duracao: document.getElementById('duracao').value
-        };
+        const id = document.getElementById('meta-id').value;
+        const titulo = document.getElementById('titulo').value;
+        const curso_id = document.getElementById('curso').value;
+        const dia = document.getElementById('dia').value;
+        const hora = document.getElementById('hora').value;
+        const duracao = document.getElementById('duracao').value;
+
+        const meta = { id, titulo, curso_id, dia, hora, duracao };
         await saveMeta(meta);
         document.getElementById('add-meta-modal').style.display = 'none';
     });
 
-    // Abrir modal de adicionar meta
-    document.getElementById('add-meta-btn').addEventListener('click', openAddModal);
-
-    // Função para gerar o calendário
-    const generateCalendar = (year, month) => {
-        const calendarBody = document.getElementById('calendarBody');
-        calendarBody.innerHTML = '';
-
-        const firstDay = new Date(year, month).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        let date = 1;
-        for (let i = 0; i < 6; i++) {
-            const row = document.createElement('tr');
-
-            for (let j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDay) {
-                    const cell = document.createElement('td');
-                    const cellText = document.createTextNode('');
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                } else if (date > daysInMonth) {
-                    break;
-                } else {
-                    const cell = document.createElement('td');
-                    const cellText = document.createTextNode(date);
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                    date++;
+    // Função para buscar e exibir os cursos no select
+    const fetchCursos = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/courses', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 }
-            }
+            });
 
-            calendarBody.appendChild(row);
+            if (response.ok) {
+                const cursos = await response.json();
+                const cursoSelect = document.getElementById('curso');
+                cursoSelect.innerHTML = '';
+
+                cursos.forEach(curso => {
+                    const option = document.createElement('option');
+                    option.value = curso.id;
+                    option.textContent = curso.nome;
+                    cursoSelect.appendChild(option);
+                });
+            } else {
+                const errorData = await response.json();
+                alert(`Erro ao obter cursos: ${errorData.message}`);
+            }
+        } catch (error) {
+            console.error('Erro ao conectar com o servidor:', error);
+            alert('Erro ao conectar com o servidor');
         }
     };
 
-    // Função para atualizar o calendário
-    const updateCalendar = () => {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth();
-
-        document.getElementById('monthYear').textContent = `${now.toLocaleString('default', { month: 'long' })} ${year}`;
-        generateCalendar(year, month);
-    };
-
-    // Atualizar o calendário ao carregar a página
-    updateCalendar();
-
-    // Buscar e exibir as metas ao carregar a página
+    // Inicializar a página
     fetchMetas();
+    fetchCursos();
 });

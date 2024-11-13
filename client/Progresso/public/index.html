@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamStudy Cursos</title>
+    <title>TeamStudy Progresso</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css">
@@ -37,37 +37,10 @@
         </div>
 
         <div class="content">
-            <h1>Cursos</h1>
-            <div class="courses-container">
-                <div id="courses-list" class="courses-list">
-                    <!-- Os cursos serão inseridos aqui -->
-                </div>
-                <div id="course-details" class="course-details">
-                    <!-- Os detalhes do curso serão exibidos aqui -->
-                </div>
+            <h1>Progresso</h1>
+            <div id="progress-list" class="progress-list">
+                <!-- O progresso será inserido aqui -->
             </div>
-            <div class="add-course">
-                <h2>Adicionar Curso</h2>
-                <button id="add-course-btn">Adicionar Curso</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="add-course-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modal-title">Adicionar Curso</h2>
-            <form id="add-course-form">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
-                <label for="descricao">Descrição:</label>
-                <textarea id="descricao" name="descricao" required></textarea>
-                <label for="duracao">Duração (horas):</label>
-                <input type="number" id="duracao" name="duracao" required>
-                <label for="imagem">Imagem (URL):</label>
-                <input type="text" id="imagem" name="imagem" required>
-                <button type="submit">Adicionar</button>
-            </form>
         </div>
     </div>
 

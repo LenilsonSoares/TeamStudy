@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamStudy Progresso</title>
+    <title>TeamStudy Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css">
@@ -14,13 +14,14 @@
             <img src="assets/woman.png" alt="User profile picture" width="80" height="80"/>
         </a>
         <h2>Ana Clara</h2>
-        <div class="edit"><a href="/perfil">editar</a></div>
+        
         <a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <a href="/cursos"><i class="fas fa-book"></i> Cursos</a>
         <a href="/cronograma"><i class="fas fa-calendar-alt"></i> Cronograma</a>
         <a href="/progresso"><i class="fas fa-chart-line"></i> Progresso</a>
-        <a href="/logout" class="logout-button"><i class="fas fa-power-off"></i> Sair</a>
+        <a href="/home" class="logout-button"><i class="fas fa-power-off"></i> Sair</a>
     </div>
+
     <div class="main-content">
         <div class="header">
             <div class="logo">
@@ -36,14 +37,29 @@
             </div>
         </div>
 
-        <div class="content">
-            <h1>Progresso</h1>
-            <div id="progress-list" class="progress-list">
-                <!-- O progresso será inserido aqui -->
-            </div>
+        <div class="profile-card">
+            <h1>Editar Perfil</h1>
+            <img alt="Profile picture of Ana Clara" height="100" src="assets/woman.png" width="100"/>
+            <h2>Ana Clara</h2>
+            <p>@anaclara123</p>
+            <button class="upload-btn">Carregar Nova Foto</button>
+            <p class="info">
+                Envie um novo avatar. Imagens maiores serão <br> redimensionadas automaticamente. <br> O tamanho máximo de upload é 4 MB
+            </p>
+            <p class="member-since">Membro desde: <strong>26 outubro de 2024</strong></p>
+            <form id="profile-form">
+                <input id="full-name" placeholder="Nome Completo" type="text"/>
+                <input id="username" placeholder="Nome de Usuário" type="text"/>
+                <input id="email" placeholder="Endereço de E-mail" type="email"/>
+                <input id="confirm-email" placeholder="Confirmar Endereço de E-mail" type="email"/>
+                <input id="password" placeholder="Senha" type="password"/>
+                <input id="confirm-password" placeholder="Confirmar Senha" type="password"/>
+                <button class="submit-btn" type="submit">Atualizar Informações</button>
+            </form>
+            <p id="success-message" style="color: green; display: none;">Informações atualizadas com sucesso!</p>
         </div>
     </div>
-
+    
     <div class="footer">
         <div class="footer-content">
             <div class="brand">
@@ -73,7 +89,6 @@
             </div>
         </div>
     </div>
-
     <script src="main.js"></script>
 </body>
 </html>

@@ -32,6 +32,7 @@ app.use('/entrar', express.static(path.join(__dirname, '../client/Entrar/public'
 app.use('/home', express.static(path.join(__dirname, '../client/Home/public')));
 app.use('/perfil', express.static(path.join(__dirname, '../client/Perfil/public')));
 app.use('/recuperar-senha', express.static(path.join(__dirname, '../client/RecuperarSenha/public')));
+app.use('/progresso', express.static(path.join(__dirname, '../client/Progresso/public')));
 
 // Rotas
 const authRoutes = require('./routes/authRoutes');

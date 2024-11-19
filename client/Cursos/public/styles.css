@@ -162,9 +162,9 @@ body {
   background-color: white;
   padding: 10px;
   border-radius: 5px;
-  cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
 }
 
@@ -177,6 +177,29 @@ body {
 .course-item h3 {
   margin: 0;
   font-size: 18px;
+  flex-grow: 1;
+}
+
+.course-item .buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.course-item button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.course-item .edit-course-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.course-item .delete-course-btn {
+  background-color: #f44336;
+  color: white;
 }
 
 .course-details {
@@ -199,6 +222,27 @@ body {
 .course-details p {
   margin: 10px 0;
   font-size: 16px;
+}
+
+.add-course {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add-course button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.add-course button:hover {
+  background-color: #0056b3;
 }
 
 .footer {

@@ -23,12 +23,15 @@
                 <label for="senha">Senha</label>
                 <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required autocomplete="off">
                 
+                <div id="login-error" class="error-message"></div> <!-- Elemento para a mensagem de erro -->
+
                 <div class="options">
                     <label><input type="checkbox" id="remember-me"> Lembre-me</label>
                     <a href="/recuperar-senha">Esqueceu a senha?</a>
                 </div>
 
                 <button type="submit">Entrar</button>
+                <div id="loading" class="loading" style="display: none;">Carregando...</div> <!-- Indicador de carregamento -->
             </form>
             <div class="social-login">
                 <p>ou continue com</p>

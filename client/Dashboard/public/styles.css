@@ -1,8 +1,14 @@
-body {
-  font-family: 'Roboto', sans-serif;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
   background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
 }
 
 .sidebar {
@@ -49,7 +55,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 18px;
   margin: 5px 0;
@@ -67,24 +73,24 @@ body {
   color: white;
 }
 
-.sidebar .logout {
+.sidebar .logout-button {
   background-color: white;
   color: black;
   text-align: center;
   padding: 10px;
   border-radius: 5px;
-  margin: 20px;
+  margin: 20px auto;
   text-decoration: none;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: auto;
-  margin: auto auto 20px auto;
   font-weight: 900;
+  cursor: pointer;
 }
 
-.sidebar .logout i {
+.sidebar .logout-button i {
   margin-right: 5px;
   color: black;
 }
@@ -143,6 +149,7 @@ body {
 .dashboard {
   margin-top: 20px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .dashboard .welcome {
@@ -153,7 +160,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
   height: 300px;
 }
 
@@ -172,9 +180,8 @@ body {
 
 .progress {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .progress .card {
@@ -186,7 +193,7 @@ body {
   width: 220px;
   height: 80px;
   text-align: center;
-  margin-bottom: 10px;
+  margin: 10px;
   position: relative;
 }
 
@@ -215,17 +222,16 @@ body {
 .history {
   margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 700px;
+  flex-wrap: wrap;
 }
 
 .history .card {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  width: 350px;
+  margin: 10px;
+  width: 100%;
+  max-width: 350px;
 }
 
 .history .card h3 {
@@ -291,33 +297,11 @@ body {
   background-color: red;
 }
 
-.logout-button {
-  background-color: white;
-  color: black;
-  text-align: center;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 20px;
-  text-decoration: none;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  margin: auto auto 20px auto;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.logout-button i {
-  margin-right: 5px;
-  color: black;
-}
-
 .footer {
   background-color: #0072ce;
   color: white;
   padding: 20px 0;
+  margin-top: 20px;
 }
 
 .footer .footer-content {

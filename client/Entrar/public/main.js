@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('email').value;
             const senha = document.getElementById('senha').value;
             const rememberMe = document.getElementById('remember-me').checked;
+            const loginError = document.getElementById('login-error');
+            const loadingIndicator = document.getElementById('loading');
+
+            // Limpar mensagem de erro anterior
+            loginError.textContent = '';
+
+            // Mostrar indicador de carregamento
+            loadingIndicator.style.display = 'block';
 
             try {
                 const response = await fetch('http://localhost:3000/api/auth/login', {
@@ -33,16 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         localStorage.removeItem('rememberMe');
                     }
 
-                    alert('Login realizado com sucesso!');
                     // Redirecionar para a tela de dashboard
                     window.location.href = '/dashboard';
                 } else {
                     const errorData = await response.json();
-                    alert(`Erro ao realizar login: ${errorData.message}`);
+                    loginError.textContent = errorData.message || 'Erro ao realizar login. Por favor, tente novamente.';
                 }
             } catch (error) {
                 console.error('Erro ao conectar com o servidor:', error);
-                alert('Erro ao conectar com o servidor');
+                loginError.textContent = 'Erro ao conectar com o servidor. Por favor, tente novamente mais tarde.';
+            } finally {
+                // Ocultar indicador de carregamento
+                loadingIndicator.style.display = 'none';
             }
         });
     }

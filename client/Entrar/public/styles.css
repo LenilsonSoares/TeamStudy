@@ -76,6 +76,12 @@ input {
     border-radius: 5px;
 }
 
+.error-message {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
 .options {
     display: flex;
     justify-content: space-between;
@@ -97,6 +103,13 @@ button {
 
 button:hover {
     background-color: #ff8f00;
+}
+
+.loading {
+    margin-top: 10px;
+    color: #ffa000;
+    font-size: 16px;
+    text-align: center;
 }
 
 .social-login {

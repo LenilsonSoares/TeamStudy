@@ -15,6 +15,22 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  transition: width 0.3s;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .sidebar a.profile-picture {
@@ -28,11 +44,22 @@ body {
   width: 80px;
   height: 80px;
   display: block;
+  transition: width 0.3s, height 0.3s;
+}
+
+.sidebar.collapsed img {
+  width: 40px;
+  height: 40px;
 }
 
 .sidebar h2 {
   text-align: center;
   margin: 10px 0;
+  transition: opacity 0.3s;
+}
+
+.sidebar.collapsed h2 {
+  opacity: 0;
 }
 
 .sidebar .edit {
@@ -41,6 +68,11 @@ body {
   font-size: 14px;
   color: #ffffff;
   cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.sidebar.collapsed .edit {
+  opacity: 0;
 }
 
 .sidebar a {
@@ -49,25 +81,34 @@ body {
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 18px;
   margin: 5px 0;
   border-radius: 5px;
   font-weight: bold;
+  transition: padding 0.3s;
+}
+
+.sidebar.collapsed a {
+  padding: 10px;
 }
 
 .sidebar a i {
   margin-bottom: 5px;
   font-size: 24px;
+  transition: margin-bottom 0.3s;
+}
+
+.sidebar.collapsed a i {
+  margin-bottom: 0;
 }
 
 .sidebar a:hover {
   background-color: #0056b3;
-  color: white;
 }
 
-.sidebar .logout {
+.sidebar .logout-button {
   background-color: white;
   color: black;
   text-align: center;
@@ -84,7 +125,7 @@ body {
   font-weight: 900;
 }
 
-.sidebar .logout i {
+.sidebar .logout-button i {
   margin-right: 5px;
   color: black;
 }
@@ -92,6 +133,11 @@ body {
 .main-content {
   margin-left: 250px;
   padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: 80px;
 }
 
 .header {
@@ -166,6 +212,8 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
 .course-item img {
@@ -190,6 +238,8 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .course-item .edit-course-btn {
@@ -197,9 +247,17 @@ body {
   color: white;
 }
 
+.course-item .edit-course-btn:hover {
+  background-color: #45a049;
+}
+
 .course-item .delete-course-btn {
   background-color: #f44336;
   color: white;
+}
+
+.course-item .delete-course-btn:hover {
+  background-color: #e53935;
 }
 
 .course-details {
@@ -210,8 +268,11 @@ body {
 }
 
 .course-details img {
-  width: 100%;
+  max-width: 300px;
+  height: auto;
   border-radius: 5px;
+  display: block;
+  margin: 0 auto;
 }
 
 .course-details h2 {
@@ -393,4 +454,22 @@ body {
 
 .modal-content form button:hover {
   background-color: #45a049;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+}
+
+.back-to-top:hover {
+  background-color: #0056b3;
 }

@@ -7,6 +7,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/user/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const userData = await response.json();
+                document.getElementById('user-photo').src = userData.foto || 'assets/default.png';
+                document.getElementById('user-name').textContent = userData.nome || 'Usuário';
+            } else {
+                const errorData = await response.text();
+                console.error(`Erro ao obter dados do usuário: ${errorData}`);
+                throw new Error('Erro ao obter dados do usuário');
+            }
+        } catch (error) {
+            console.error('Erro ao obter dados do usuário:', error);
+            document.getElementById('user-photo').src = 'assets/default.png';
+            document.getElementById('user-name').textContent = 'Erro ao obter dados do usuário';
+        }
+    };
+
     // Função para buscar e exibir os cursos
     const fetchCourses = async () => {
         try {
@@ -53,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const showCourseDetails = (course) => {
         const courseDetails = document.getElementById('course-details');
         courseDetails.innerHTML = `
-            <img src="${course.imagem}" alt="${course.nome} image">
+            <img src="${course.imagem}" alt="${course.nome} image" style="max-width: 300px; height: auto;">
             <h2>${course.nome}</h2>
             <p>${course.descricao}</p>
             <p>Duração: ${course.duracao} horas</p>
@@ -85,55 +110,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    // Função para abrir o modal de adicionar curso
-    const openAddModal = () => {
-        document.getElementById('modal-title').textContent = 'Adicionar Curso';
-        document.getElementById('add-course-form').reset();
-        document.getElementById('add-course-modal').style.display = 'block';
-
-        document.getElementById('add-course-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const nome = document.getElementById('nome').value;
-            const descricao = document.getElementById('descricao').value;
-            const duracao = document.getElementById('duracao').value;
-            const imagem = document.getElementById('imagem').value;
-
-            const course = { nome, descricao, duracao, imagem };
-            await addCourse(course);
-            closeAddModal(); // Fechar o modal após adicionar o curso
-        };
-    };
-
-    // Função para fechar o modal de adicionar curso
-    const closeAddModal = () => {
-        document.getElementById('add-course-modal').style.display = 'none';
-    };
-
-    // Função para abrir o modal de editar curso
-    const openEditModal = (course) => {
-        document.getElementById('modal-title').textContent = 'Editar Curso';
-        document.getElementById('nome').value = course.nome;
-        document.getElementById('descricao').value = course.descricao;
-        document.getElementById('duracao').value = course.duracao;
-        document.getElementById('imagem').value = course.imagem;
-        document.getElementById('add-course-modal').style.display = 'block';
-
-        document.getElementById('add-course-form').onsubmit = async (e) => {
-            e.preventDefault();
-            await updateCourse(course.id);
-            closeAddModal();
-        };
-    };
-
     // Função para atualizar um curso existente
-    const updateCourse = async (id) => {
-        const nome = document.getElementById('nome').value;
-        const descricao = document.getElementById('descricao').value;
-        const duracao = document.getElementById('duracao').value;
-        const imagem = document.getElementById('imagem').value;
-
-        const course = { nome, descricao, duracao, imagem };
-
+    const updateCourse = async (id, course) => {
         try {
             const response = await fetch(`http://localhost:3000/api/courses/${id}`, {
                 method: 'PUT',
@@ -180,25 +158,81 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    // Evento para adicionar um novo curso
+    // Função para abrir o modal de adicionar curso
+    const openAddModal = () => {
+        isEditing = false;
+        currentCourseId = null;
+        document.getElementById('modal-title').textContent = 'Adicionar Curso';
+        document.getElementById('add-course-form').reset();
+        document.getElementById('add-course-modal').style.display = 'block';
+    };
+
+    // Função para abrir o modal de editar curso
+    const openEditModal = (course) => {
+        isEditing = true;
+        currentCourseId = course.id;
+        document.getElementById('modal-title').textContent = 'Editar Curso';
+        document.getElementById('nome').value = course.nome;
+        document.getElementById('descricao').value = course.descricao;
+        document.getElementById('duracao').value = course.duracao;
+        document.getElementById('imagem').value = course.imagem;
+        document.getElementById('add-course-modal').style.display = 'block';
+    };
+
+    // Função para fechar o modal de adicionar/editar curso
+    const closeAddModal = () => {
+        document.getElementById('add-course-modal').style.display = 'none';
+    };
+
+    // Evento para adicionar ou editar um curso
     document.getElementById('add-course-form').addEventListener('submit', async (e) => {
         e.preventDefault();
+        
         const nome = document.getElementById('nome').value;
         const descricao = document.getElementById('descricao').value;
         const duracao = document.getElementById('duracao').value;
         const imagem = document.getElementById('imagem').value;
 
         const course = { nome, descricao, duracao, imagem };
-        await addCourse(course);
-        closeAddModal(); // Fechar o modal após adicionar o curso
+
+        if (isEditing) {
+            await updateCourse(currentCourseId, course);
+        } else {
+            await addCourse(course);
+        }
+        closeAddModal(); // Fechar o modal após adicionar/editar o curso
     });
 
     // Evento para abrir o modal de adicionar curso
     document.getElementById('add-course-btn').addEventListener('click', openAddModal);
 
-    // Evento para fechar o modal de adicionar curso
+    // Evento para fechar o modal de adicionar/editar curso
     document.querySelector('.close').addEventListener('click', closeAddModal);
 
     // Inicializar a página
+    fetchUserData();
     fetchCourses();
+
+    // Função para mostrar ou esconder o botão "Voltar ao Topo"
+    const backToTopButton = document.getElementById('back-to-top');
+    window.onscroll = () => {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    };
+
+    // Função para rolar a página para o topo
+    backToTopButton.addEventListener('click', () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    });
+
+    // Função para alternar o menu lateral
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
 });

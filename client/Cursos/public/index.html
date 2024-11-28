@@ -10,16 +10,21 @@
 </head>
 <body>
     <div class="sidebar">
-        <a class="profile-picture" href="#">
-            <img src="assets/woman.png" alt="User profile picture" width="80" height="80"/>
-        </a>
-        <h2>Ana Clara</h2>
-        <div class="edit"><a href="/perfil">editar</a></div>
-        <a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="/cursos"><i class="fas fa-book"></i> Cursos</a>
-        <a href="/cronograma"><i class="fas fa-calendar-alt"></i> Cronograma</a>
-        <a href="/progresso"><i class="fas fa-chart-line"></i> Progresso</a>
-        <a href="/logout" class="logout-button"><i class="fas fa-power-off"></i> Sair</a>
+        <button id="sidebar-toggle" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+        <div class="sidebar-header">
+            <a class="profile-picture" href="#">
+                <img id="user-photo" src="assets/default.png" alt="User profile picture"/>
+            </a>
+            <h2 id="user-name">Usuário</h2>
+            <div class="edit"><a href="/perfil">editar</a></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="/cursos"><i class="fas fa-book"></i> Cursos</a>
+            <a href="/cronograma"><i class="fas fa-calendar-alt"></i> Cronograma</a>
+            <a href="/progresso"><i class="fas fa-chart-line"></i> Progresso</a>
+            <a href="/logout" class="logout-button"><i class="fas fa-power-off"></i> Sair</a>
+        </nav>
     </div>
     <div class="main-content">
         <div class="header">
@@ -47,7 +52,6 @@
                 </div>
             </div>
             <div class="add-course">
-                <h2>Adicionar Curso</h2>
                 <button id="add-course-btn">Adicionar Curso</button>
             </div>
         </div>
@@ -100,6 +104,8 @@
             </div>
         </div>
     </div>
+
+    <button id="back-to-top" class="back-to-top"><i class="fas fa-arrow-up"></i></button>
 
     <script src="main.js"></script>
 </body>
